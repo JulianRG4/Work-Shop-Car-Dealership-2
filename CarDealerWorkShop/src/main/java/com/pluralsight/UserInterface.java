@@ -86,7 +86,8 @@ public class UserInterface
 
       ArrayList<Vehicle> vehiclesInRange = dealerShip.findVehiclesWithinPriceRange(minPrice, maxPrice);
       System.out.println("Vehicles within price range $" + minPrice + " - $" + maxPrice + ":");
-      for (Vehicle vehicle : vehiclesInRange) {
+      for (Vehicle vehicle : vehiclesInRange)
+      {
          printVehicleInfo(vehicle);
       }
    }
@@ -97,7 +98,8 @@ public class UserInterface
 
       ArrayList<Vehicle> matchingVehicles = dealerShip.findVehiclesByMakeModel(makeOrModel);
       System.out.println("Vehicles with make or model \"" + makeOrModel + "\":");
-      for (Vehicle vehicle : matchingVehicles) {
+      for (Vehicle vehicle : matchingVehicles)
+      {
          printVehicleInfo(vehicle);
       }
    }
