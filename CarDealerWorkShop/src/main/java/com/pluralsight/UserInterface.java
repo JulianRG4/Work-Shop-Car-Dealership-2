@@ -231,6 +231,7 @@ public class UserInterface
          System.out.println("Vehicle with VIN " + vinToRemove + " not found.");
       }
    }
+
    private void printVehicleInfo(Vehicle vehicle)
    {
       String vehicleInfo = String.format("VIN:%-10d  Year:%-10d  Make:%-10s  Model:%-10s  Type:%-10s  Color:%-10s  Odometer:%-10d miles  Price:$%-10.2f", vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
@@ -244,7 +245,6 @@ public class UserInterface
       System.out.println();
       System.out.println("Enter Vehicle Vin");
       int vin = userInput.nextInt();
-
    }
 
 }
