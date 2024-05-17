@@ -58,6 +58,6 @@ public abstract class Contract
 
     public double getMonthlyPayment()
     {
-        return getMonthlyPayment();
+        return monthlyPayment;
     }
 }
