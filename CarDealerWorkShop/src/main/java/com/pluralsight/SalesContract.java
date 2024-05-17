@@ -4,6 +4,7 @@ public class SalesContract extends Contract {
     private double salesTax;
     private int recordingFee;
     private int processingFee;
+    private boolean financing;
 
 
     public SalesContract(String date, String customerName, String customerEmail, String sold, double totalPrice, double monthlyPayment, double salesTax, int recordingFee, int processingFee)
@@ -13,7 +14,6 @@ public class SalesContract extends Contract {
         this.recordingFee = recordingFee;
         this.processingFee = processingFee;
     }
-
 
     public double getSalesTax() {
         return salesTax;
@@ -37,5 +37,25 @@ public class SalesContract extends Contract {
 
     public void setProcessingFee(int processingFee) {
         this.processingFee = processingFee;
+    }
+
+    public boolean isFinancing() {
+        return financing;
+    }
+
+    public void setFinancing(boolean financing) {
+        this.financing = financing;
+    }
+
+    @Override
+    public double getTotalPrice()
+    {
+        return 0;
+    }
+
+    @Override
+    public double getMonthlyPayment()
+    {
+        return 0;
     }
 }

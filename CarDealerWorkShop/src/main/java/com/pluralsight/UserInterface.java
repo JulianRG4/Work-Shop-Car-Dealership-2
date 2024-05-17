@@ -13,9 +13,7 @@ public class UserInterface
    public UserInterface()
    {
       dealerShip = DealershipFileManager.getDealership();
-      Contract contract = new Contract("date", "Hassan Gulaid", "gulaid06@gmail.com", "vehicle sold",3433, 313){
 
-      };
    }
 
    public void run()
@@ -242,7 +240,11 @@ public class UserInterface
 
    private void buyVehicle()
    {
-      System.out.println("Select Vin of Vehicle");
+      System.out.println("Buy Vehicle");
+      System.out.println();
+      System.out.println("Enter Vehicle Vin");
+      int vin = userInput.nextInt();
+
    }
 
 }
