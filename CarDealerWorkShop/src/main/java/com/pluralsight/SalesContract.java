@@ -50,7 +50,8 @@ public class SalesContract extends Contract {
     @Override
     public double getTotalPrice()
     {
-        return 0;
+        double totalPrice = getVehicleSold().get
+
     }
 
     @Override

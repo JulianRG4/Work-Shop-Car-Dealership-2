@@ -47,6 +47,8 @@ public abstract class Contract
         this.customerEmail = customerEmail;
     }
 
+
+
     public String getVehicleSold()
     {
         return vehicleSold;
@@ -56,6 +58,12 @@ public abstract class Contract
     {
         this.vehicleSold = vehicleSold;
     }
+
+
+
+
+
+
 
     static double emi_calculator(double Price, double interestRate, double time)
     {
