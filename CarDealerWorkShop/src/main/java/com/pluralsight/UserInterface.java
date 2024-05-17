@@ -31,6 +31,8 @@ public class UserInterface
          System.out.println("[7] - List ALL vehicles");
          System.out.println("[8] - Add a vehicle");
          System.out.println("[9] - Remove a vehicle");
+         System.out.println("[10] - Buy a Vehicle");
+         System.out.println("[11] - Lease a Vehicle");
          System.out.println("[99] - Quit");
 
          System.out.print("Enter your choice: ");
@@ -64,6 +66,12 @@ public class UserInterface
                break;
             case 9:
                removeVehicle();
+               break;
+            case 10:
+               buyVehicle();
+               break;
+            case 11:
+               System.out.println("Lease");
                break;
             case 99:
                DealershipFileManager.saveDealership(dealerShip);
@@ -176,6 +184,7 @@ public class UserInterface
       System.out.print("Enter VIN: ");
       int vin = userInput.nextInt();
       System.out.print("Enter Year: ");
+
       int year = userInput.nextInt();
       System.out.print("Enter Make: ");
       String make = userInput.next();
@@ -223,6 +232,11 @@ public class UserInterface
       String vehicleInfo = String.format("VIN:%-10d  Year:%-10d  Make:%-10s  Model:%-10s  Type:%-10s  Color:%-10s  Odometer:%-10d miles  Price:$%-10.2f", vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
 
       System.out.println(vehicleInfo);
+   }
+
+   private void buyVehicle()
+   {
+      System.out.println("Select Vin of Vehicle");
    }
 
 }
