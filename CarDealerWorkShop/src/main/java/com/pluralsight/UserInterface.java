@@ -14,7 +14,7 @@ public class UserInterface
    {
       dealerShip = DealershipFileManager.getDealership();
       Contract contract = new Contract("date", "Hassan Gulaid", "gulaid06@gmail.com", "vehicle sold",3433, 313){
-         
+
       };
    }
 
@@ -76,7 +76,7 @@ public class UserInterface
                break;
             case 11:
                System.out.println("Lease");
-                System.out.println(Contract );
+                System.out.println();
 
                break;
             case 99:

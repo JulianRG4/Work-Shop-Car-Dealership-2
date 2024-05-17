@@ -67,6 +67,5 @@ public abstract class Contract
         return monthlyPayment;
     }
 
-//public void toString()
 
 }
