@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +13,9 @@ public class UserInterface
    public UserInterface()
    {
       dealerShip = DealershipFileManager.getDealership();
+      Contract contract = new Contract("date", "Hassan Gulaid", "gulaid06@gmail.com", "vehicle sold",3433, 313){
+         
+      };
    }
 
    public void run()
@@ -72,6 +76,8 @@ public class UserInterface
                break;
             case 11:
                System.out.println("Lease");
+                System.out.println(Contract );
+
                break;
             case 99:
                DealershipFileManager.saveDealership(dealerShip);

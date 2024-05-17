@@ -22,7 +22,7 @@ public class ContractFileManager
     {
         try(PrintWriter printWriter = new PrintWriter(new File("Files/Contracts.csv")))
         {
-            String
+            for ()
         }
         catch (IOException _)
         {

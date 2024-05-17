@@ -1,15 +1,17 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
+
 public abstract class Contract
 {
-    private String date;
+    private LocalDate date = LocalDate.now();
     private String customerName;
     private String customerEmail;
     private String sold;
     private double totalPrice;
     private double monthlyPayment;
 
-    public Contract(String date, String customerName, String customerEmail, String sold, double totalPrice, double monthlyPayment)
+    public Contract(String LocalDate, String customerName, String customerEmail, String sold, double totalPrice, double monthlyPayment)
     {
         this.date = date;
         this.customerName = customerName;
@@ -19,11 +21,15 @@ public abstract class Contract
         this.monthlyPayment = monthlyPayment;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDate getDate() {
+
+
+        return LocalDate.now();
+
+
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -60,4 +66,7 @@ public abstract class Contract
     {
         return monthlyPayment;
     }
+
+//public void toString()
+
 }
