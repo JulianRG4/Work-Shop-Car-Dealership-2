@@ -5,10 +5,11 @@ public class SalesContract extends Contract {
     private int recordingFee;
     private boolean financing;
 
-    public SalesContract(String date, String customerName, String customerEmail, Vehicle sold, double totalPrice, double monthlyPayment, double salesTax, int recordingFee, int processingFee) {
-        super(date, customerName, customerEmail, sold, totalPrice, monthlyPayment);
+    public SalesContract(String customerName, String customerEmail, Vehicle sold, double totalPrice, double monthlyPayment, double salesTax, int recordingFee, boolean financing) {
+        super(customerName, customerEmail, sold, totalPrice, monthlyPayment);
         this.salesTax = salesTax;
         this.recordingFee = recordingFee;
+        this.financing = financing;
     }
 
     public double getSalesTax() {
@@ -31,31 +32,23 @@ public class SalesContract extends Contract {
         return financing;
     }
 
-    public void setFinancing(boolean financing)
-    {
+    public void setFinancing(boolean financing) {
         this.financing = financing;
     }
 
     @Override
-    public double getTotalPrice()
-    {
-
+    public double getTotalPrice() {
         double totalPrice = getVehicleSold().getPrice() + (getVehicleSold().getPrice() * .05) + 100 + 295;
         return totalPrice;
     }
 
     @Override
-    public double getMonthlyPayment()
-    {
-        if (financing)
-        {
+    public double getMonthlyPayment() {
+        if (financing) {
             double totalPrice = getTotalPrice();
-            if (totalPrice >= 10000)
-            {
+            if (totalPrice >= 10000) {
                 return calculateMonthlyPayment(totalPrice, 4.25, 48);
-            }
-            else
-            {
+            } else {
                 return calculateMonthlyPayment(totalPrice, 5.25, 24);
             }
         } else {
@@ -72,8 +65,7 @@ public class SalesContract extends Contract {
         return (totalPrice * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfMonths));
     }
 
-    public int getProcessingFee()
-    {
+    public int getProcessingFee() {
         return 295;
     }
 }
