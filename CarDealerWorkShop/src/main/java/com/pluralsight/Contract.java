@@ -7,16 +7,13 @@ public abstract class Contract {
     private String customerName;
     private String customerEmail;
     private Vehicle vehicleSold;
-    private double totalPrice;
-    private double monthlyPayment;
 
-    public Contract(String customerName, String customerEmail, Vehicle sold, double totalPrice, double monthlyPayment) {
+
+    public Contract(String customerName, String customerEmail, Vehicle sold) {
         this.date = LocalDate.now().toString(); // Automatically set to current date
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.vehicleSold = sold;
-        this.totalPrice = totalPrice;
-        this.monthlyPayment = monthlyPayment;
     }
 
     public String getDate() {

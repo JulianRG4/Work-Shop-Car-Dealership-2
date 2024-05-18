@@ -255,6 +255,24 @@ public class UserInterface {
       }
    }
 
+//   private void buyVehicle()
+//   {
+//
+//
+//   }
+//
+//
+//
+//
+//
+//   private void leaseVehicle()
+//   {
+//
+//   }
+
+
+
+
    private void saveContract(String contractDetails) {
    }
 }
