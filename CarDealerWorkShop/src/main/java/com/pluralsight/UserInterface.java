@@ -2,10 +2,7 @@ package com.pluralsight;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+
 
 public class UserInterface {
    public static Scanner userInput = new Scanner(System.in);
@@ -79,7 +76,8 @@ public class UserInterface {
       scanner.close();
    }
 
-   private void findVehiclesWithinPriceRange() {
+   private void findVehiclesWithinPriceRange()
+   {
       System.out.print("Enter minimum price: ");
       double minPrice = userInput.nextDouble();
 
@@ -89,23 +87,27 @@ public class UserInterface {
 
       ArrayList<Vehicle> vehiclesInRange = dealerShip.findVehiclesWithinPriceRange(minPrice, maxPrice);
       System.out.println("Vehicles within price range $" + minPrice + " - $" + maxPrice + ":");
-      for (Vehicle vehicle : vehiclesInRange) {
+      for (Vehicle vehicle : vehiclesInRange)
+      {
          printVehicleInfo(vehicle);
       }
    }
 
-   private void findVehiclesByMakeModel() {
+   private void findVehiclesByMakeModel()
+   {
       System.out.print("Enter make or model to search: ");
       String makeOrModel = userInput.next();
 
       ArrayList<Vehicle> matchingVehicles = dealerShip.findVehiclesByMakeModel(makeOrModel);
       System.out.println("Vehicles with make or model \"" + makeOrModel + "\":");
-      for (Vehicle vehicle : matchingVehicles) {
+      for (Vehicle vehicle : matchingVehicles)
+      {
          printVehicleInfo(vehicle);
       }
    }
 
-   private void findVehiclesByYearRange() {
+   private void findVehiclesByYearRange()
+   {
       System.out.print("Enter minimum year: ");
       int minYear = userInput.nextInt();
       System.out.print("Enter maximum year: ");
@@ -113,23 +115,27 @@ public class UserInterface {
 
       ArrayList<Vehicle> vehiclesYearRange = dealerShip.findVehiclesByYearRange(minYear, maxYear);
       System.out.println("Vehicles within year range " + minYear + " - " + maxYear + ":");
-      for (Vehicle vehicle : vehiclesYearRange) {
+      for (Vehicle vehicle : vehiclesYearRange)
+      {
          printVehicleInfo(vehicle);
       }
    }
 
-   private void findVehiclesByColor() {
+   private void findVehiclesByColor()
+   {
       System.out.print("Enter color to search: ");
       String color = userInput.next();
 
       ArrayList<Vehicle> vehiclesColor = dealerShip.findVehiclesByColor(color);
       System.out.println("Vehicles with color \"" + color + "\":");
-      for (Vehicle vehicle : vehiclesColor) {
+      for (Vehicle vehicle : vehiclesColor)
+      {
          printVehicleInfo(vehicle);
       }
    }
 
-   private void findVehiclesByMileageRange() {
+   private void findVehiclesByMileageRange()
+   {
       System.out.print("Enter minimum mileage: ");
       int minMileage = userInput.nextInt();
       System.out.print("Enter maximum mileage: ");
@@ -137,25 +143,30 @@ public class UserInterface {
 
       ArrayList<Vehicle> vehiclesMillage = dealerShip.findVehiclesByMileageRange(minMileage, maxMileage);
       System.out.println("Vehicles within mileage range " + minMileage + " - " + maxMileage + ":");
-      for (Vehicle vehicle : vehiclesMillage) {
+      for (Vehicle vehicle : vehiclesMillage)
+      {
          printVehicleInfo(vehicle);
       }
    }
 
-   private void findVehiclesByType() {
+   private void findVehiclesByType()
+   {
       System.out.print("Enter type to search (Car, Truck, SUV, Van): ");
       String type = userInput.next();
 
       ArrayList<Vehicle> vehiclesByType = dealerShip.findVehiclesByType(type);
       System.out.println("Vehicles with type \"" + type + "\":");
-      for (Vehicle vehicle : vehiclesByType) {
+      for (Vehicle vehicle : vehiclesByType)
+      {
          printVehicleInfo(vehicle);
       }
    }
 
-   private void listAllVehicles() {
+   private void listAllVehicles()
+   {
       System.out.println("All vehicles:");
-      for (Vehicle vehicle : dealerShip.getAllVehicles()) {
+      for (Vehicle vehicle : dealerShip.getAllVehicles())
+      {
          printVehicleInfo(vehicle);
       }
    }
@@ -166,7 +177,6 @@ public class UserInterface {
       System.out.print("Enter VIN: ");
       int vin = userInput.nextInt();
       System.out.print("Enter Year: ");
-
       int year = userInput.nextInt();
       System.out.print("Enter Make: ");
       String make = userInput.next();
@@ -186,93 +196,123 @@ public class UserInterface {
       System.out.println("Vehicle added successfully.");
    }
 
-   private void removeVehicle() {
+   private void removeVehicle()
+   {
       System.out.println("Remove a vehicle:");
 
       System.out.print("Enter VIN of the vehicle you want to remove: ");
       int vinToRemove = userInput.nextInt();
 
       boolean removed = false;
-      for (Vehicle vehicle : dealerShip.getAllVehicles()) {
-         if (vehicle.getVin() == vinToRemove) {
+      for (Vehicle vehicle : dealerShip.getAllVehicles())
+      {
+         if (vehicle.getVin() == vinToRemove)
+         {
             dealerShip.removeVehicle(vehicle);
             removed = true;
             System.out.println("Vehicle removed successfully.");
             break;
          }
       }
-      if (!removed) {
+      if (!removed)
+      {
          System.out.println("Vehicle with VIN " + vinToRemove + " not found.");
       }
    }
 
-   private void printVehicleInfo(Vehicle vehicle) {
+   private void printVehicleInfo(Vehicle vehicle)
+   {
       String vehicleInfo = String.format("VIN:%-10d  Year:%-10d  Make:%-10s  Model:%-10s  Type:%-10s  Color:%-10s  Odometer:%-10d miles  Price:$%-10.2f", vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
 
       System.out.println(vehicleInfo);
    }
 
-   private void buyOrLeaseVehicle() {
-      System.out.print("Enter Vehicle VIN: ");
-      int vin = userInput.nextInt();
-      Vehicle vehicleToBuyOrLease = null;
+   private void buyOrLeaseVehicle()
+   {
+      System.out.println("Buy or Lease a Vehicle:");
+      System.out.println("[1] - Buy");
+      System.out.println("[2] - Lease");
+      System.out.println("[3] - Cancel");
 
-      for (Vehicle vehicle : dealerShip.getAllVehicles()) {
-         if (vehicle.getVin() == vin) {
-            vehicleToBuyOrLease = vehicle;
+      System.out.print("Enter your choice: ");
+      int buyOrLeaseChoice = userInput.nextInt();
+
+      switch (buyOrLeaseChoice)
+      {
+         case 1:
+            buyVehicle();
             break;
+         case 2:
+            leaseVehicle();
+            break;
+         case 3:
+            System.out.println("Transaction canceled.");
+            break;
+         default:
+            System.out.println("Invalid choice. Please try again.");
+      }
+   }
+
+   private void buyVehicle()
+   {
+      System.out.print("Enter VIN of the vehicle you want to buy: ");
+      int vinToBuy = userInput.nextInt();
+
+      Vehicle vehicleToBuy = findVehicleByVIN(vinToBuy);
+      if (vehicleToBuy != null)
+      {
+         System.out.println("You have selected the following vehicle:");
+         printVehicleInfo(vehicleToBuy);
+         System.out.print("Confirm purchase (Yes / No): ");
+         String confirmation = userInput.next();
+         if (confirmation.equalsIgnoreCase("Yes"))
+         {
+            double price = vehicleToBuy.getPrice();
+            System.out.println("Total Price: $" + price);
+            System.out.println("Thank you for your purchase!");
+            dealerShip.removeVehicle(vehicleToBuy);
+         }
+         else
+         {
+            System.out.println("Purchase canceled.");
          }
       }
-
-      if (vehicleToBuyOrLease == null) {
-         System.out.println("Vehicle with VIN " + vin + " not found.");
-         return;
-      }
-
-      System.out.print("Enter your name: ");
-      String buyerName = userInput.next();
-      System.out.print("Enter your address: ");
-      String buyerAddress = userInput.next();
-
-      System.out.println("Do you want to [1] Buy or [2] Lease the vehicle?");
-      int choice = userInput.nextInt();
-
-      LocalDate currentDate = LocalDate.now();
-      String contractDetails = String.format("%s,%s,%s,%d,%s,%s,%.2f",
-              buyerName, buyerAddress, currentDate, vehicleToBuyOrLease.getVin(),
-              vehicleToBuyOrLease.getMake(), vehicleToBuyOrLease.getModel(), vehicleToBuyOrLease.getPrice());
-
-      switch (choice) {
-         case 1: // Buy
-            contractDetails = "Buy," + contractDetails;
-            saveContract(contractDetails);
-            dealerShip.removeVehicle(vehicleToBuyOrLease);
-            System.out.println("Vehicle purchased successfully and contract saved.");
-            break;
-         case 2: // Lease
-            System.out.println("Lease");
-
+      else
+      {
+         System.out.println("Vehicle with VIN " + vinToBuy + " not found.");
       }
    }
 
-//   private void buyVehicle()
-//   {
-//
-//
-//   }
-//
-//
-//
-//
-//
-//   private void leaseVehicle()
-//   {
-//
-//   }
+   private void leaseVehicle() {
+      System.out.print("Enter VIN of the vehicle you want to lease: ");
+      int vinToLease = userInput.nextInt();
 
-
-
-
-   private void saveContract(String contractDetails) {
+      Vehicle vehicleToLease = findVehicleByVIN(vinToLease);
+      if (vehicleToLease != null)
+      {
+         System.out.println("You have chosen to lease the following vehicle:");
+         printVehicleInfo(vehicleToLease);
+         System.out.print("Enter lease duration (in months): ");
+         int leaseDuration = userInput.nextInt();
+         double monthlyLeasePayment = vehicleToLease.getPrice() / leaseDuration;
+         System.out.println("Monthly Lease Payment: $" + monthlyLeasePayment);
+         System.out.println("Thank you for leasing with us!");
+      } else
+      {
+         System.out.println("Vehicle with VIN " + vinToLease + " not found.");
+      }
    }
+
+   private Vehicle findVehicleByVIN(int vin)
+   {
+      for (Vehicle vehicle : dealerShip.getAllVehicles())
+      {
+         if (vehicle.getVin() == vin)
+         {
+            return vehicle;
+         }
+      }
+      return null;
+   }
+
 }

@@ -2,59 +2,63 @@ package com.pluralsight;
 
 import java.time.LocalDate;
 
-public abstract class Contract {
-    private String date;
+public abstract class Contract
+{
+    private LocalDate date;
     private String customerName;
     private String customerEmail;
-    private Vehicle vehicleSold;
+    private Vehicle vehicle;
+    private double totalPrice;
+    private double monthlyPayment;
 
-
-    public Contract(String customerName, String customerEmail, Vehicle sold) {
-        this.date = LocalDate.now().toString(); // Automatically set to current date
+    public Contract(LocalDate date, String customerName, String customerEmail, Vehicle vehicle) {
+        this.date = date;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
-        this.vehicleSold = sold;
+        this.vehicle = vehicle;
     }
 
-    public String getDate() {
+    public LocalDate getDate()
+    {
         return date;
     }
 
-    // Removed setDate method to ensure date is always the current date
-
-    public String getCustomerName() {
+    public String getCustomerName()
+    {
         return customerName;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerEmail() {
+    public String getCustomerEmail()
+    {
         return customerEmail;
     }
 
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
+    public Vehicle getVehicle()
+    {
+        return vehicle;
     }
 
-    public Vehicle getVehicleSold() {
-        return vehicleSold;
+    public double getTotalPrice()
+    {
+        return totalPrice;
     }
 
-    public void setVehicleSold(Vehicle vehicleSold) {
-        this.vehicleSold = vehicleSold;
+    public void setTotalPrice(double totalPrice)
+    {
+        this.totalPrice = totalPrice;
     }
 
-    static double emi_calculator(double Price, double interestRate, double time) {
-        double emi;
-        interestRate = interestRate / (12 * 100); // one month interest
-        time = time * 12; // one month period
-        emi = (Price * interestRate * (double) Math.pow(1 + interestRate, time)) / (double) (Math.pow(1 + interestRate, time) - 1);
-        return (emi);
+    public double getMonthlyPayment()
+    {
+        return monthlyPayment;
     }
 
-    public abstract double getTotalPrice();
+    public void setMonthlyPayment(double monthlyPayment)
+    {
+        this.monthlyPayment = monthlyPayment;
+    }
 
-    public abstract double getMonthlyPayment();
+    public abstract double calculateTotalPrice();
+    public abstract double calculateMonthlyPayment();
 }
+
