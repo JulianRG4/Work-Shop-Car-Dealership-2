@@ -1,7 +1,10 @@
 package com.pluralsight;
 
+import javax.lang.model.element.Name;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.List;
 
 
 public class UserInterface {
@@ -63,9 +66,9 @@ public class UserInterface {
                removeVehicle();
                break;
             case 10:
-               buyOrLeaseVehicle();
+               dealerShip.buyOrLeaseVehicle();
                break;
-            case 99:
+            case 99: ;
                DealershipFileManager.saveDealership(dealerShip);
                System.out.println("Exiting...");
                break;
@@ -227,92 +230,5 @@ public class UserInterface {
       System.out.println(vehicleInfo);
    }
 
-   private void buyOrLeaseVehicle()
-   {
-      System.out.println("Buy or Lease a Vehicle:");
-      System.out.println("[1] - Buy");
-      System.out.println("[2] - Lease");
-      System.out.println("[3] - Cancel");
-
-      System.out.print("Enter your choice: ");
-      int buyOrLeaseChoice = userInput.nextInt();
-
-      switch (buyOrLeaseChoice)
-      {
-         case 1:
-            buyVehicle();
-            break;
-         case 2:
-            leaseVehicle();
-            break;
-         case 3:
-            System.out.println("Transaction canceled.");
-            break;
-         default:
-            System.out.println("Invalid choice. Please try again.");
-      }
-   }
-
-   private void buyVehicle()
-   {
-      System.out.print("Enter VIN of the vehicle you want to buy: ");
-      int vinToBuy = userInput.nextInt();
-
-      Vehicle vehicleToBuy = findVehicleByVIN(vinToBuy);
-      if (vehicleToBuy != null)
-      {
-         System.out.println("You have selected the following vehicle:");
-         printVehicleInfo(vehicleToBuy);
-         System.out.print("Confirm purchase (Yes / No): ");
-         String confirmation = userInput.next();
-         if (confirmation.equalsIgnoreCase("Yes"))
-         {
-            double price = vehicleToBuy.getPrice();
-            System.out.println("Total Price: $" + price);
-            System.out.println("Thank you for your purchase!");
-            dealerShip.removeVehicle(vehicleToBuy);
-         }
-         else
-         {
-            System.out.println("Purchase canceled.");
-         }
-      }
-      else
-      {
-         System.out.println("Vehicle with VIN " + vinToBuy + " not found.");
-      }
-   }
-
-   private void leaseVehicle() {
-      System.out.print("Enter VIN of the vehicle you want to lease: ");
-      int vinToLease = userInput.nextInt();
-
-      Vehicle vehicleToLease = findVehicleByVIN(vinToLease);
-      if (vehicleToLease != null)
-      {
-         System.out.println("You have chosen to lease the following vehicle:");
-         printVehicleInfo(vehicleToLease);
-         System.out.print("Enter lease duration (in months): ");
-         int leaseDuration = userInput.nextInt();
-         double monthlyLeasePayment = vehicleToLease.getPrice() / leaseDuration;
-         System.out.println("Monthly Lease Payment: $" + monthlyLeasePayment);
-         System.out.println("Thank you for leasing with us!");
-      } else
-      {
-         System.out.println("Vehicle with VIN " + vinToLease + " not found.");
-      }
-   }
-
-   private Vehicle findVehicleByVIN(int vin)
-   {
-      for (Vehicle vehicle : dealerShip.getAllVehicles())
-      {
-         if (vehicle.getVin() == vin)
-         {
-            return vehicle;
-         }
-      }
-      return null;
-   }
 
 }
