@@ -25,6 +25,7 @@ public class ContractFileManager
             {
                 builder.append(data).append("|");
             }
+
             builder.setLength(builder.length() - 1);
             writer.write(builder.toString());
             writer.newLine();
@@ -32,3 +33,39 @@ public class ContractFileManager
             System.out.println("Sorry there was an error");
         }
     }
+    public static void saveLeaseContract(List<String> leaseContractData, double monthlyPayment)
+    {
+        double price = Double.parseDouble(leaseContractData.get(11));
+        double endingValue = price * 0.5;
+        double leaseFee = price * 0.07;
+        double totalCost = (price - endingValue) + leaseFee;
+
+        List<String> fullLeaseContractData = new ArrayList<>(leaseContractData);
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CONTRACTS_FILE_PATH, true)))
+        {
+            StringBuilder builder = new StringBuilder();
+            for (String data : fullLeaseContractData)
+            {
+                builder.append(data).append("|");
+            }
+            builder.setLength(builder.length() - 1);
+            writer.write(builder.toString());
+            writer.newLine();
+        }
+        catch (IOException e)
+        {
+            System.err.println("Error saving lease contract: " + e.getMessage());
+        }
+    }
+    private static double calculateSalesTax(double price)
+    {
+        return 0.05 * price;
+    }
+
+    private static double calculateProcessingFee(double price)
+    {
+        return price < 10000 ? 295.00 : 495.00;
+    }
+}

@@ -179,24 +179,28 @@ public class DealerShip {
         }
     }
 
-    public void buyVehicle(int vinToBuy, Scanner userInput) {
+    public void buyVehicle(int vinToBuy, Scanner userInput)
+    {
+        Vehicle vehicleToBuy = findVehicleByVIN(vinToBuy);
+
+        double price = vehicleToBuy.getPrice();
+        double salesTax = calculateSalesTax(price);
+        double recordingFee = 100.00;
+        double processingFee = price < 10000 ? 295.00 : 495.00;
+        double totalCost = price + salesTax + recordingFee + processingFee;
+        double monthlyPayment = 0.0;
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String formattedDate = currentDate.format(dateFormatter);
 
-        Vehicle vehicleToBuy = findVehicleByVIN(vinToBuy);
         if (vehicleToBuy != null) {
             System.out.println("You have selected the following vehicle:");
             printVehicleInfo(vehicleToBuy);
             System.out.print("Confirm purchase (Yes / No): ");
             String confirmation = userInput.next();
-            if (confirmation.equalsIgnoreCase("Yes")) {
-                double price = vehicleToBuy.getPrice();
-                double salesTax = calculateSalesTax(price);
-                double recordingFee = 100.00;
-                double processingFee = price < 10000 ? 295.00 : 495.00;
-                double totalCost = price + salesTax + recordingFee + processingFee;
-                double monthlyPayment = 0.0;
+            if (confirmation.equalsIgnoreCase("Yes"))
+            {
+
 
                 System.out.print("Enter your First and Last name: ");
                 String customerName = userInput.next() + " " + userInput.next();
@@ -234,12 +238,13 @@ public class DealerShip {
 
                 System.out.println("Total Price: $" + totalCost);
                 if (isFinanced) {
-                    System.out.println("Monthly Payment: $" + monthlyPayment);
+                    System.out.printf("Monthly Payment: $%.2f", monthlyPayment);
                 }
 
                 removeVehicle(vehicleToBuy);
             } else {
-                System.out.println("Purchase canceled.");
+                System.out.println(price);
+                removeVehicle(vehicleToBuy);
             }
         } else {
             System.out.println("Vehicle with VIN " + vinToBuy + " not found.");
@@ -288,7 +293,7 @@ public class DealerShip {
 
                 ContractFileManager.saveLeaseContract(leaseContractData, monthlyPayment);
 
-                System.out.println("Monthly Lease Payment: $" + monthlyPayment);
+                System.out.printf("Monthly Lease Payment: $%.2f", monthlyPayment);
                 System.out.println("Thank you for leasing with us!");
 
                 removeVehicle(vehicleToLease);
