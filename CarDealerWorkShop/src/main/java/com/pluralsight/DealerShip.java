@@ -246,8 +246,6 @@ public class DealerShip {
                 System.out.println(price);
                 removeVehicle(vehicleToBuy);
             }
-        } else {
-            System.out.println("Vehicle with VIN " + vinToBuy + " not found.");
         }
     }
 
