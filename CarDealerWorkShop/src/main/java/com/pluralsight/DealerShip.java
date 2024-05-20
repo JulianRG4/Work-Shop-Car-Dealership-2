@@ -216,8 +216,6 @@ public class DealerShip {
 
                 System.out.println("Purchase canceled.");
             }
-        } else {
-            System.out.println("Vehicle with VIN " + vinToBuy + " not found.");
         }
     }
 
