@@ -35,7 +35,8 @@ public class SalesContract extends Contract {
     }
 
     @Override
-    public double calculateTotalPrice() {
+    public double calculateTotalPrice()
+    {
         double totalPrice = getVehicle().getPrice() + salesTaxAmount + recordingFee + processingFee;
         setTotalPrice(totalPrice);
         return totalPrice;

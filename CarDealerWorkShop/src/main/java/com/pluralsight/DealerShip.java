@@ -2,8 +2,9 @@ package com.pluralsight;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Collections;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DealerShip {
@@ -134,24 +135,7 @@ public class DealerShip {
         System.out.println(vehicleInfo);
     }
 
-    public double calculateMonthlyPayment(double price) {
-        if (price >= 10000) {
-            return (price + calculateSalesTax(price) + 100.00 + calculateProcessingFee(price)) * 0.0425 / 48;
-        } else {
-            return (price + calculateSalesTax(price) + 100.00 + calculateProcessingFee(price)) * 0.0525 / 24;
-        }
-    }
-
-    private double calculateSalesTax(double price) {
-        return 0.05 * price;
-    }
-
-    private double calculateProcessingFee(double price) {
-        return price < 10000 ? 295.00 : 495.00;
-    }
-
-    public void buyOrLeaseVehicle()
-    {
+    public void buyOrLeaseVehicle() {
         System.out.println("Buy or Lease a Vehicle:");
         System.out.println("[1] - Buy");
         System.out.println("[2] - Lease");
@@ -164,7 +148,7 @@ public class DealerShip {
             case 1:
                 System.out.print("Enter VIN of the vehicle you want to buy: ");
                 int vinToBuy = userInput.nextInt();
-                buyVehicle(vinToBuy, userInput);
+                buyVehicle(vinToBuy);
                 break;
             case 2:
                 System.out.print("Enter VIN of the vehicle you want to lease: ");
@@ -179,29 +163,15 @@ public class DealerShip {
         }
     }
 
-    public void buyVehicle(int vinToBuy, Scanner userInput)
-    {
+    public void buyVehicle(int vinToBuy) {
         Vehicle vehicleToBuy = findVehicleByVIN(vinToBuy);
-
-        double price = vehicleToBuy.getPrice();
-        double salesTax = calculateSalesTax(price);
-        double recordingFee = 100.00;
-        double processingFee = price < 10000 ? 295.00 : 495.00;
-        double totalCost = price + salesTax + recordingFee + processingFee;
-        double monthlyPayment = 0.0;
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        String formattedDate = currentDate.format(dateFormatter);
 
         if (vehicleToBuy != null) {
             System.out.println("You have selected the following vehicle:");
             printVehicleInfo(vehicleToBuy);
             System.out.print("Confirm purchase (Yes / No): ");
             String confirmation = userInput.next();
-            if (confirmation.equalsIgnoreCase("Yes"))
-            {
-
-
+            if (confirmation.equalsIgnoreCase("Yes")) {
                 System.out.print("Enter your First and Last name: ");
                 String customerName = userInput.next() + " " + userInput.next();
                 System.out.print("Enter your email: ");
@@ -210,13 +180,14 @@ public class DealerShip {
                 String financeConfirmation = userInput.next();
                 boolean isFinanced = financeConfirmation.equalsIgnoreCase("Yes");
 
-                if (isFinanced) {
-                    monthlyPayment = price >= 10000 ? (totalCost * 0.0425 / 48) : (totalCost * 0.0525 / 24);
-                }
+                LocalDate currentDate = LocalDate.now();
+                SalesContract salesContract = new SalesContract(currentDate, customerName, customerEmail, vehicleToBuy, isFinanced);
+                double totalCost = salesContract.calculateTotalPrice();
+                double monthlyPayment = isFinanced ? salesContract.calculateMonthlyPayment() : 0.0; // Adjust monthly payment based on financing choice
 
                 List<String> contractData = new ArrayList<>();
                 contractData.add("SALE");
-                contractData.add(formattedDate);
+                contractData.add(currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
                 contractData.add(customerName);
                 contractData.add(customerEmail);
                 contractData.add(String.valueOf(vehicleToBuy.getVin()));
@@ -226,25 +197,24 @@ public class DealerShip {
                 contractData.add(vehicleToBuy.getVehicleType());
                 contractData.add(vehicleToBuy.getColor());
                 contractData.add(String.valueOf(vehicleToBuy.getOdometer()));
-                contractData.add(String.valueOf(price));
-                contractData.add(String.format("%.2f", salesTax));
-                contractData.add(String.format("%.2f", recordingFee));
-                contractData.add(String.format("%.2f", processingFee));
+                contractData.add(String.valueOf(vehicleToBuy.getPrice()));
+                contractData.add(String.format("%.2f", salesContract.getSalesTaxAmount()));
+                contractData.add(String.format("%.2f", salesContract.getRecordingFee()));
+                contractData.add(String.format("%.2f", salesContract.getProcessingFee()));
                 contractData.add(String.format("%.2f", totalCost));
                 contractData.add(isFinanced ? "YES" : "NO");
                 contractData.add(String.format("%.2f", monthlyPayment));
 
                 ContractFileManager.saveSaleContract(contractData, financeConfirmation, monthlyPayment);
 
-                System.out.println("Total Price: $" + totalCost);
-                if (isFinanced) {
-                    System.out.printf("Monthly Payment: $%.2f", monthlyPayment);
-                }
+                System.out.println("Total Price: $" + String.format("%.2f", totalCost));
+                System.out.printf("Monthly Payment: $%.2f", monthlyPayment);
 
                 removeVehicle(vehicleToBuy);
             } else {
-                System.out.println(price);
-                removeVehicle(vehicleToBuy);
+                ContractFileManager.saveSaleContract(Collections.emptyList(), "No", 0.0);
+
+                System.out.println("Purchase canceled.");
             }
         }
     }
@@ -283,6 +253,7 @@ public class DealerShip {
                 leaseContractData.add(vehicleToLease.getVehicleType());
                 leaseContractData.add(vehicleToLease.getColor());
                 leaseContractData.add(String.valueOf(vehicleToLease.getOdometer()));
+
                 leaseContractData.add(String.valueOf(price));
                 leaseContractData.add(String.valueOf(endingValue));
                 leaseContractData.add(String.format("%.2f", leaseFee));
@@ -292,7 +263,7 @@ public class DealerShip {
                 ContractFileManager.saveLeaseContract(leaseContractData, monthlyPayment);
 
                 System.out.printf("Monthly Lease Payment: $%.2f", monthlyPayment);
-                System.out.println("Thank you for leasing with us!");
+                System.out.println(" Thank you for leasing with us!");
 
                 removeVehicle(vehicleToLease);
             } else {
