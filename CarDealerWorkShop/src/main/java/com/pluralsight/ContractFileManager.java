@@ -33,8 +33,7 @@ public class ContractFileManager
             System.out.println("Sorry there was an error");
         }
     }
-    public static void saveLeaseContract(List<String> leaseContractData, double monthlyPayment)
-    {
+    public static void saveLeaseContract(List<String> leaseContractData, double monthlyPayment) {
         double price = Double.parseDouble(leaseContractData.get(11));
         double endingValue = price * 0.5;
         double leaseFee = price * 0.07;
@@ -43,8 +42,7 @@ public class ContractFileManager
         List<String> fullLeaseContractData = new ArrayList<>(leaseContractData);
 
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CONTRACTS_FILE_PATH, true)))
-        {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CONTRACTS_FILE_PATH, true))) {
             StringBuilder builder = new StringBuilder();
             for (String data : fullLeaseContractData)
             {
