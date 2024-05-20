@@ -253,6 +253,7 @@ public class DealerShip {
                 leaseContractData.add(vehicleToLease.getVehicleType());
                 leaseContractData.add(vehicleToLease.getColor());
                 leaseContractData.add(String.valueOf(vehicleToLease.getOdometer()));
+
                 leaseContractData.add(String.valueOf(price));
                 leaseContractData.add(String.valueOf(endingValue));
                 leaseContractData.add(String.format("%.2f", leaseFee));
