@@ -9,7 +9,8 @@ public class LeaseContract extends Contract {
     private final double leaseInterestRate = 0.04;
     private final int leaseDuration = 36;
 
-    public LeaseContract(LocalDate date, String customerName, String customerEmail, Vehicle vehicle) {
+    public LeaseContract(LocalDate date, String customerName, String customerEmail, Vehicle vehicle)
+    {
         super(date, customerName, customerEmail, vehicle);
         this.expectedEndingValue = vehicle.getPrice() * 0.5;
         this.leaseFee = vehicle.getPrice() * 0.07;
@@ -32,14 +33,16 @@ public class LeaseContract extends Contract {
     }
 
     @Override
-    public double calculateTotalPrice() {
+    public double calculateTotalPrice()
+    {
         double totalPrice = getVehicle().getPrice() + leaseFee;
         setTotalPrice(totalPrice);
         return totalPrice;
     }
 
     @Override
-    public double calculateMonthlyPayment() {
+    public double calculateMonthlyPayment()
+    {
         Scanner stdin = new Scanner(System.in);
 
         double principal = getTotalPrice();

@@ -43,12 +43,14 @@ public class SalesContract extends Contract {
     }
 
     @Override
-    public double calculateMonthlyPayment() {
+    public double calculateMonthlyPayment()
+    {
         double vehiclePrice = getVehicle().getPrice();
         double monthlyInterest;
         int numberOfPayments;
 
-        if (vehiclePrice >= 10000) {
+        if (vehiclePrice >= 10000)
+        {
             monthlyInterest = 0.0425 / 12;
             numberOfPayments = 48;
         } else {

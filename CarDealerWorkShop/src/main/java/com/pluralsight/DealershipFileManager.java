@@ -45,7 +45,8 @@ public class DealershipFileManager
                     dealership.addVehicle(vehicle);
                 }
             }
-        } catch (IOException | NumberFormatException exception)
+        }
+        catch (IOException | NumberFormatException exception)
         {
             System.out.println("Sorry we had an error");
         }
@@ -64,7 +65,8 @@ public class DealershipFileManager
             {
                 writer.write(vehicle.getVin() + "|" + vehicle.getYear() + "|" + vehicle.getMake() + "|" + vehicle.getModel() + "|" + vehicle.getVehicleType() + "|" + vehicle.getColor() + "|" + vehicle.getOdometer() + "|" + vehicle.getPrice() + "\n");
             }
-        } catch (IOException exception) {
+        } catch (IOException exception)
+        {
             System.out.println("There was an error");
         }
     }

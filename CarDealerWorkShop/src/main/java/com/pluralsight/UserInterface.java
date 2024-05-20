@@ -1,18 +1,17 @@
 package com.pluralsight;
 
-import javax.lang.model.element.Name;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.util.List;
 
 
-public class UserInterface {
+public class UserInterface
+{
    public static Scanner userInput = new Scanner(System.in);
 
    private DealerShip dealerShip = null;
 
-   public UserInterface() {
+   public UserInterface()
+   {
       dealerShip = DealershipFileManager.getDealership();
    }
 
@@ -20,7 +19,8 @@ public class UserInterface {
       Scanner scanner = new Scanner(System.in);
       int choice = 0;
 
-      while (choice != 99) {
+      while (choice != 99)
+      {
          System.out.println();
          System.out.println("[1] - Find vehicles within a price range");
          System.out.println("[2] - Find vehicles by make / model");
@@ -37,7 +37,8 @@ public class UserInterface {
          System.out.print("Enter your choice: ");
          choice = scanner.nextInt();
 
-         switch (choice) {
+         switch (choice)
+         {
             case 1:
                findVehiclesWithinPriceRange();
                break;
